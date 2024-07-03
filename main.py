@@ -1,18 +1,52 @@
 import tkinter as tk
-from time import *
+import time
+import datetime
 
-def update():
-    time_string = strftime("%I:%M:%S %p")
-    time_label.config(text=time_string)
 
-    time_label.after(1000, update)
+def countdowntimer():
+    times = int(hrs.get()) * 3600 + int(mins.get()) * 60 + int(secs.get())
+
+    while times > -1:
+        minute, second = (times // 60, times % 60)
+        hour = 0
+
+        if minute > 60:
+            hour, minute = (minute // 60, minute % 60)
+        
+        secs.set(second)
+        mins.set(minute)
+        hrs.set(hour)
+
+        window.update()
+        time.sleep(1)
+
+        if times == 0:
+            secs.set('00')
+            mins.set('00')
+            hrs.set('00')
+
+        times -= 1
 
 
 window = tk.Tk()
 
-time_label = tk.Label(window, font=("Arial",50), fg="white", bg="black")
-time_label.pack()
+window.geometry('750x300')
 
-update()
+secs = tk.StringVar()
+tk.Entry(window, textvariable=secs, width=2, font=("Arial", 15)).place(x=220, y=120)
+secs.set('00')
+
+mins = tk.StringVar()
+tk.Entry(window, textvariable=mins, width=2, font=("Arial", 15)).place(x=180, y=120)
+mins.set('00')
+
+hrs = tk.StringVar()
+tk.Entry(window, textvariable=hrs, width=2, font=("Arial", 15)).place(x=142, y=120)
+hrs.set('00')
+
+
+tk.Label(window, font=('Arial', 22), text='Set Timer', bg='black').place(x=105, y=70)
+tk.Button(window, text='Start', bd='2', bg='red', font=('Arial', 12), command=countdowntimer).place(x=167, y=165)
 
 window.mainloop()
+
