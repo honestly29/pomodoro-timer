@@ -11,12 +11,12 @@ def countdown(t):
     while t:
         mins, secs = divmod(t, 60)  # div mod gives you the quotient, remainder 
 
-        #: = start of the format code.
-        #0 = the number should be zero-padded 
-        #2 = the number should be at least 2 digits wide.
-        #d = "decimal integer".
+        # : = start of the format code.
+        # 0 = the number should be zero-padded 
+        # 2 = the number should be at least 2 digits wide.
+        # d = "decimal integer".
         timer = '{:02d}:{:02d}'.format(mins, secs)
-        
+
         print(timer, end="\r") # overwrites current line with printed value rather than go to the next line
         time.sleep(1)
         t -= 1
